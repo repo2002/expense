@@ -1,0 +1,128 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--card-background);
+    box-shadow: var(--shadow-sm);
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+
+        a {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+
+            &:hover {
+                color: var(--primary-dark);
+            }
+        }
+    }
+
+    &__hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1002;
+        
+        span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-primary);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        &.active {
+            span {
+                &:first-child {
+                    transform: rotate(45deg) translate(6px, 6px);
+                }
+                
+                &:nth-child(2) {
+                    opacity: 0;
+                }
+                
+                &:last-child {
+                    transform: rotate(-45deg) translate(6px, -6px);
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            display: flex;
+        }
+    }
+
+    &__menu {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xl);
+
+        @media (max-width: 768px) {
+            position: fixed;
+            top: 0;
+            left: 100%;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--card-background);
+            padding: var(--spacing-xl);
+            transition: left 0.3s ease;
+            
+            &.active {
+                left: 0;
+            }
+        }
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: var(--spacing-lg);
+
+            a {
+                font-size: var(--font-lg);
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+
+        @media (max-width: 768px) {
+            margin-top: var(--spacing-xl);
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+// Dark mode adjustments
+[data-theme='dark'] .navbar {
+    &__hamburger span {
+        background-color: var(--text-primary);
+    }
+} 

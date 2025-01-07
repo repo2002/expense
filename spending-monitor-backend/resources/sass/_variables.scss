@@ -1,7 +1,92 @@
-// Body
-$body-bg: #f8fafc;
+// Light Theme Variables
+:root {
+    // Colors
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --background-color: #f8f9fa;
+    --card-background: #ffffff;
+    
+    // Text Colors
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-light: #999999;
+    
+    // Border Colors
+    --border-color: #dee2e6;
+    --border-light: #eeeeee;
+    
+    // Spacing
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    // Font Sizes
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.25rem;
+    --font-xl: 1.5rem;
+    
+    // Border Radius
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 8px;
+    
+    // Box Shadows
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    
+    // Transitions
+    --transition-speed: 0.3s;
+}
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+// Dark Theme Variables
+[data-theme="dark"] {
+    // Colors
+    --primary-color: #0d6efd;
+    --primary-dark: #0a58ca;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    
+    // Text Colors
+    --text-primary: #e1e1e1;
+    --text-secondary: #b0b0b0;
+    --text-light: #808080;
+    
+    // Border Colors
+    --border-color: #2d2d2d;
+    --border-light: #333333;
+    
+    // Box Shadows
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+// Breakpoints (as SCSS variables since they can't be CSS variables)
+$breakpoints: (
+    'sm': 576px,
+    'md': 768px,
+    'lg': 992px,
+    'xl': 1200px
+);
+
+// Media Query Mixin
+@mixin breakpoint($size) {
+    @media (max-width: map-get($breakpoints, $size)) {
+        @content;
+    }
+}

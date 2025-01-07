@@ -1,0 +1,43 @@
+
+.label {
+    display: inline-block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color var(--transition-speed) ease;
+
+    &--small {
+        font-size: var(--font-xs);
+    }
+
+    &--medium {
+        font-size: var(--font-sm);
+    }
+
+    &--large {
+        font-size: var(--font-md);
+    }
+
+    &--required {
+        .label__required-mark {
+            color: var(--danger-color);
+            margin-left: var(--spacing-xs);
+        }
+    }
+
+    &--disabled {
+        color: var(--text-light);
+        cursor: not-allowed;
+    }
+
+    &:hover:not(.label--disabled) {
+        color: var(--text-primary);
+    }
+}
+
+// Dark mode adjustments
+[data-theme='dark'] .label {
+    &--disabled {
+        color: rgba(255, 255, 255, 0.5);
+    }
+}

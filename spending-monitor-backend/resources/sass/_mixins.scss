@@ -1,0 +1,50 @@
+// Media Query Mixins
+@mixin breakpoint($size) {
+    @media (max-width: map-get($breakpoints, $size)) {
+        @content;
+    }
+}
+
+// Flex Center Mixin
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Card Style Mixin
+@mixin card-style {
+    background: var(--card-background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+// Form Input Style Mixin
+@mixin form-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-sm);
+    transition: border-color var(--transition-speed) ease;
+
+    &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    &.error {
+        border-color: var(--danger-color);
+    }
+}
+
+// Button Style Mixin
+@mixin button-style {
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+} 

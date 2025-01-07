@@ -1,0 +1,131 @@
+@import '../variables';
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 60px);
+    padding: var(--spacing-xl);
+    background-color: var(--background-color);
+
+    .profile-card {
+        width: 100%;
+        max-width: 600px;
+        background: var(--card-background);
+        padding: var(--spacing-xl);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-md);
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-light);
+
+            h1 {
+                font-size: var(--font-xl);
+                font-weight: 600;
+                color: var(--text-primary);
+                margin: 0;
+            }
+
+            .edit-button {
+                padding: var(--spacing-sm) var(--spacing-md);
+                background-color: var(--primary-color);
+                color: var(--card-background);
+                border: none;
+                border-radius: var(--border-radius-md);
+                cursor: pointer;
+                font-size: var(--font-sm);
+                transition: background-color var(--transition-speed) ease;
+
+                &:hover {
+                    background-color: var(--primary-dark);
+                }
+            }
+        }
+
+        .profile-info {
+            .info-group {
+                margin-bottom: var(--spacing-lg);
+
+                label {
+                    display: block;
+                    font-weight: 500;
+                    color: var(--text-secondary);
+                    margin-bottom: var(--spacing-xs);
+                    font-size: var(--font-sm);
+                }
+
+                p {
+                    margin: 0;
+                    color: var(--text-primary);
+                    font-size: var(--font-md);
+                }
+            }
+        }
+
+        .profile-form {
+            .form-group {
+                margin-bottom: var(--spacing-lg);
+
+                label {
+                    display: block;
+                    margin-bottom: var(--spacing-sm);
+                    font-weight: 500;
+                    color: var(--text-secondary);
+                }
+
+                input {
+                    width: 100%;
+                    padding: var(--spacing-md);
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius-md);
+                    font-size: var(--font-sm);
+                    transition: border-color var(--transition-speed) ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: var(--primary-color);
+                    }
+
+                    &.error {
+                        border-color: var(--danger-color);
+                    }
+                }
+
+                .error-message {
+                    color: var(--danger-color);
+                    font-size: var(--font-xs);
+                    margin-top: var(--spacing-xs);
+                }
+            }
+
+            .submit-button {
+                width: 100%;
+                padding: var(--spacing-md);
+                background-color: var(--success-color);
+                color: var(--card-background);
+                border: none;
+                border-radius: var(--border-radius-md);
+                font-size: var(--font-md);
+                font-weight: 500;
+                cursor: pointer;
+                transition: background-color var(--transition-speed) ease;
+
+                &:hover {
+                    background-color: var(--success-color);
+                    opacity: 0.9;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('md') {
+    .profile-container {
+        padding: var(--spacing-md);
+    }
+} 

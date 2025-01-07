@@ -1,0 +1,29 @@
+@import '../../../sass/variables.scss';
+
+.auth-template {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - var(--navbar-height));
+    padding: var(--spacing-xl);
+
+    &__container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    &__title {
+        font-size: var(--font-2xl);
+        color: var(--text-primary);
+        margin-bottom: var(--spacing-sm);
+        text-align: center;
+    }
+
+    &__subtitle {
+        font-size: var(--font-md);
+        color: var(--text-secondary);
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
+    }
+} 

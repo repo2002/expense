@@ -1,0 +1,16 @@
+@import '../../../sass/variables.scss';
+
+.base-template {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+
+    &__content {
+        flex: 1;
+        padding: var(--spacing-xl);
+        max-width: var(--container-max-width);
+        margin: 0 auto;
+        width: 100%;
+    }
+} 

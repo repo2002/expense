@@ -1,0 +1,50 @@
+.personal-info-form {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    &__title {
+        font-size: var(--font-xl);
+        color: var(--text-primary);
+        margin: 0 0 var(--spacing-xl) 0;
+    }
+
+    &__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    &__error {
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+        background-color: var(--danger-light);
+        color: var(--danger-color);
+        border-radius: var(--border-radius-md);
+        font-size: var(--font-sm);
+    }
+
+    &__actions {
+        display: flex;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
+    }
+
+    &__success {
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+        background-color: var(--success-light);
+        color: var(--success-color);
+        border-radius: var(--border-radius-md);
+        font-size: var(--font-sm);
+    }
+} 

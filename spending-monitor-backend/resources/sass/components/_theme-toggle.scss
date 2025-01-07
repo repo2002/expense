@@ -1,0 +1,21 @@
+@import '../variables';
+
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-speed) ease;
+    
+    &:hover {
+        background-color: var(--border-light);
+    }
+    
+    &__icon {
+        font-size: var(--font-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+} 
