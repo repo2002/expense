@@ -30,4 +30,24 @@ class User extends Authenticatable implements CanResetPasswordContract
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
+    }
 }

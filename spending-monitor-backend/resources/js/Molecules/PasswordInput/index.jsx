@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Label from '../../atoms/Label';
 import Input from '../../atoms/Input';
 import Button from '../../atoms/Button';
+import PasswordStrength from './passwordStrength';
 import './PasswordInput.scss';
 
-const PasswordInput = ({ label, value, onChange, error, disabled, ...props }) => {
+const PasswordInput = ({ label, value, onChange, error, disabled, showStrength = false, ...props }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -34,6 +35,7 @@ const PasswordInput = ({ label, value, onChange, error, disabled, ...props }) =>
                     {showPassword ? '👁️' : '👁️‍🗨️'}
                 </Button>
             </div>
+            {showStrength && <PasswordStrength password={value} />}
         </div>
     );
 };

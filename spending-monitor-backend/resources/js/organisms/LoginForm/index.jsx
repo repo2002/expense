@@ -21,7 +21,8 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
-            await getCsrfCookie();
+            await API.get('/sanctum/csrf-cookie');
+
             
             const response = await API.post('/login', {
                 email,

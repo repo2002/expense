@@ -50,6 +50,7 @@ const PasswordChangeForm = ({
                     disabled={!isEditing}
                     readOnly={!isEditing}
                     required
+                    showStrength={true}
                 />
                 <PasswordInput
                     label="Confirm New Password"

@@ -7,6 +7,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\BillController;
+use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\GoalController;
 use Illuminate\Support\Facades\Mail;
 // React app route
 Route::get('/', function () {
@@ -32,6 +37,20 @@ Route::middleware('auth:sanctum')->group(function () {
     // Dashboard routes
     Route::get('/dashboard', [DashboardController::class, 'index']);    
     
+    // Bill routes
+    Route::apiResource('bills', BillController::class);
+    
+    // Budget routes
+    Route::apiResource('budgets', BudgetController::class);
+    
+    // Category routes
+    Route::apiResource('categories', CategoryController::class);
+    
+    // Expense routes
+    Route::apiResource('expenses', ExpenseController::class);
+    
+    // Goal routes
+    Route::apiResource('goals', GoalController::class);
 });
 
 // Password Reset Routes
@@ -44,14 +63,7 @@ Route::get('{any}', function () {
     return view('app');
 })->where('any', '.*');
 
-Route::get('/test-mail', function () {
-    Mail::raw('Test email from Laravel', function($msg) {
-        $msg->to('refaelmichelashvili@gmail.com')
-            ->subject('Test Email');
-    });
-    
-    return 'Test email sent!';
-});
+
 
 Route::get('/check-auth', function () {
     return response()->json([

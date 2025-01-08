@@ -91,23 +91,22 @@ const RegisterForm = () => {
                 error={errors.email}
             />
 
-            <FormField
+            <PasswordInput
                 label="Password"
                 id="password"
                 name="password"
                 required
-                component={PasswordInput}
                 value={formData.password}
                 onChange={handleChange}
                 error={errors.password}
+                showStrength={true}
             />
 
-            <FormField
+            <PasswordInput
                 label="Confirm Password"
                 id="password_confirmation"
                 name="password_confirmation"
                 required
-                component={PasswordInput}
                 value={formData.password_confirmation}
                 onChange={handleChange}
                 error={errors.password_confirmation}

@@ -1,4 +1,4 @@
-@import '../../../sass/variables.scss';
+@use '../../../sass/variables.scss' as *;
 
 .dashboard-template {
     &__header {
@@ -38,9 +38,6 @@
     }
 
     &__content {
-        background-color: var(--card-background);
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-sm);
         padding: var(--spacing-xl);
     }
 } 
