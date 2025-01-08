@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../api/axios';
 import '../../sass/components/_profile.scss';
+import axios from 'axios';
 
 function Profile() {
     const [user, setUser] = useState(null);
@@ -22,7 +22,7 @@ function Profile() {
 
     const fetchUserData = async () => {
         try {
-            const response = await API.get('/user');
+            const response = await axios.get('/user');
             setUser(response.data);
             setFormData({
                 ...formData,
@@ -49,7 +49,7 @@ function Profile() {
         setErrors({});
 
         try {
-            const response = await API.put('/user/profile', formData);
+            const response = await axios.put('/user/profile', formData);
             setUser(response.data);
             setIsEditing(false);
             // Clear password fields
@@ -63,6 +63,20 @@ function Profile() {
             if (error.response?.data?.errors) {
                 setErrors(error.response.data.errors);
             }
+        }
+    };
+
+    const updateProfile = async (data) => {
+        try {
+            const response = await axios.post('/api/profile/update', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            });
+            // handle response
+        } catch (error) {
+            // handle error
         }
     };
 

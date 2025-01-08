@@ -38,6 +38,7 @@ const PersonalInfoForm = ({
                     value={userData.name}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                 />
                 <FormField
                     label="Surname"
@@ -46,6 +47,7 @@ const PersonalInfoForm = ({
                     value={userData.surname}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                 />
                 <FormField
                     label="Email"
@@ -55,13 +57,18 @@ const PersonalInfoForm = ({
                     value={userData.email}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                 />
 
                 <div className="personal-info-form__actions">
                     {!isEditing ? (
                         <Button 
                             variant="primary"
-                            onClick={onEdit}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onEdit();
+                            }}
+                            type="button"
                         >
                             Edit Profile
                         </Button>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavLink from '../../Molecules/NavLink';
 import ThemeToggle from '../../components/ThemeToggle';
 import Button from '../../atoms/Button';
-import axios from '../../api/axios';
+import API from '../../api/axios';
 import './Navbar.scss';
 
 const Navbar = () => {
@@ -13,9 +13,10 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/logout');
-            localStorage.removeItem('token');
-            navigate('/login');
+            await API.post('/logout');
+            localStorage.removeItem('token'); // Remove auth token
+            document.cookie = 'XSRF-TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear CSRF cookie
+            window.location.href = '/login'; // Force a full page reload to clear all state
         } catch (error) {
             console.error('Logout failed:', error);
         }

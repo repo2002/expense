@@ -4,12 +4,13 @@ import FormField from '../../Molecules/FormField';
 import PasswordInput from '../../Molecules/PasswordInput';
 import Button from '../../atoms/Button';
 import Link from '../../atoms/Link';
-import axios from '../../api/axios';
+import API, { getCsrfCookie } from '../../api/axios';
 import './LoginForm.scss';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false);
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -20,9 +21,12 @@ const LoginForm = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('/login', {
+            await getCsrfCookie();
+            
+            const response = await API.post('/login', {
                 email,
-                password
+                password,
+                remember: remember
             });
 
             localStorage.setItem('token', response.data.token);
@@ -58,12 +62,11 @@ const LoginForm = () => {
                 error={errors.email}
             />
 
-            <FormField
+            <PasswordInput 
                 label="Password"
                 id="password"
                 required
                 error={errors.password}
-                component={PasswordInput}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
@@ -72,6 +75,16 @@ const LoginForm = () => {
                 <Link to="/forgot-password" variant="secondary" size="small">
                     Forgot your password?
                 </Link>
+            </div>
+
+            <div className="login-form__remember">
+                <input
+                    type="checkbox"
+                    id="remember"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                />
+                <label htmlFor="remember">Remember me</label>
             </div>
 
             <Button 

@@ -10,6 +10,8 @@ import AboutPage from '../pages/About';
 import HomePage from '../pages/Home';
 import ForgotPasswordPage from '../pages/ForgotPassword';
 
+
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
@@ -97,6 +99,8 @@ function App() {
                             <Navigate to="/" replace />
                         } 
                     />
+                   
+
                 </Routes>
             </Router>
         </ThemeProvider>

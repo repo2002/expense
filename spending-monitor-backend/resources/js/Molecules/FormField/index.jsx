@@ -11,7 +11,8 @@ const FormField = ({
     type = 'text',
     size = 'medium',
     disabled = false,
-    ...inputProps
+    component: Component,
+    ...props
 }) => {
     return (
         <div className="form-field">
@@ -25,14 +26,28 @@ const FormField = ({
                     {label}
                 </Label>
             )}
-            <Input
-                id={id}
-                type={type}
-                error={error}
-                disabled={disabled}
-                size={size}
-                {...inputProps}
-            />
+            
+            {Component ? (
+                <Component 
+                    id={id}
+                    {...props}
+                />
+            ) : (
+                <Input
+                    id={id}
+                    type={type}
+                    error={error}
+                    disabled={disabled}
+                    size={size}
+                    {...props}
+                />
+            )}
+
+            {error && (
+                <div className="form-field__error">
+                    {error}
+                </div>
+            )}
         </div>
     );
 };

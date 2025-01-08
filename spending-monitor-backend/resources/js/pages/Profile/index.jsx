@@ -3,7 +3,7 @@ import BaseTemplate from '../../templates/BaseTemplate';
 import TabPanel from '../../molecules/TabPanel';
 import PersonalInfoForm from '../../organisms/PersonalInfoForm';
 import PasswordChangeForm from '../../organisms/PasswordChangeForm';
-import axios from '../../api/axios';
+import API, { getCsrfCookie } from '../../api/axios';
 import './Profile.scss';
 
 const ProfilePage = () => {
@@ -32,13 +32,15 @@ const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('personal');
 
     useEffect(() => {
+        // Only fetch on initial load
         fetchUserData();
-    }, []);
+    }, []); // Empty dependency array
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('/user');
+            const response = await API.get('/user');
             setUserData(response.data);
+            // Don't reset isPersonalEditing here
         } catch (error) {
             setError('Failed to load user data');
         }
@@ -51,10 +53,11 @@ const ProfilePage = () => {
         setSuccessMessage('');
 
         try {
-            const response = await axios.put('/user/profile', userData);
-            setIsPersonalEditing(false);
+            await getCsrfCookie();
+            const response = await API.put('/user/profile', userData);
+            setIsPersonalEditing(false); // Only reset here after successful submit
             setSuccessMessage('Profile updated successfully');
-            setTimeout(() => setSuccessMessage(''), 3000); // Clear after 3 seconds
+            setTimeout(() => setSuccessMessage(''), 3000);
         } catch (error) {
             setError(error.response?.data?.message || 'Failed to update profile');
         } finally {
@@ -69,10 +72,13 @@ const ProfilePage = () => {
         setPasswordSuccessMessage('');
 
         try {
-            const response = await axios.put('/user/password', passwordData);
+            // Get fresh CSRF cookie before making the request
+            await getCsrfCookie();
+            
+            const response = await API.put('/user/password', passwordData);
             resetPasswordForm();
             setPasswordSuccessMessage(response.data.message);
-            setTimeout(() => setPasswordSuccessMessage(''), 3000); // Clear after 3 seconds
+            setTimeout(() => setPasswordSuccessMessage(''), 3000);
         } catch (error) {
             setPasswordError(error.response?.data?.message || 'Failed to update password');
         } finally {
@@ -105,6 +111,11 @@ const ProfilePage = () => {
         setPasswordError('');
     };
 
+    const handleEdit = () => {
+        console.log('Edit button clicked');
+        setIsPersonalEditing(true);
+    };
+
     const tabs = [
         {
             id: 'personal',
@@ -116,10 +127,11 @@ const ProfilePage = () => {
                     isLoading={isLoading}
                     error={error}
                     successMessage={successMessage}
-                    onEdit={() => setIsPersonalEditing(true)}
+                    onEdit={handleEdit}
                     onSubmit={handlePersonalInfoSubmit}
                     onChange={handlePersonalInfoChange}
                     onCancel={() => {
+                        console.log('Cancel clicked');
                         setIsPersonalEditing(false);
                         fetchUserData();
                     }}

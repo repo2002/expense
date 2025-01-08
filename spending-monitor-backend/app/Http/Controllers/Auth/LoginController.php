@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -15,8 +16,17 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $remember = $request->boolean('remember', false);
+
+        if (Auth::attempt($credentials, $remember)) {
             $user = Auth::user();
+            
+            if ($remember) {
+                // Generate remember token
+                $user->setRememberToken(Str::random(60));
+                $user->save();
+            }
+
             $token = $user->createToken('auth-token')->plainTextToken;
 
             return response()->json([
@@ -33,7 +43,14 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        // Delete all tokens
         auth()->user()->tokens()->delete();
+        
+        // Clear the session
+        $request->session()->invalidate();
+        
+        // Regenerate the CSRF token
+        $request->session()->regenerateToken();
         
         return response()->json([
             'message' => 'Logged out successfully'

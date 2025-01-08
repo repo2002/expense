@@ -11,6 +11,17 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+// If using axios
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
+
+// Add this if not already present
+axios.defaults.withCredentials = true;
+
+// Also add this to handle CSRF cookie
+axios.get('/sanctum/csrf-cookie').then(response => {
+    // CSRF cookie set
+});
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

@@ -52,3 +52,11 @@ Route::get('/test-mail', function () {
     
     return 'Test email sent!';
 });
+
+Route::get('/check-auth', function () {
+    return response()->json([
+        'user' => auth()->user(),
+        'id' => auth()->id(),
+        'check' => auth()->check()
+    ]);
+});

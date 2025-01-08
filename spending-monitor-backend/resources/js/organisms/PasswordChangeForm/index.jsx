@@ -38,6 +38,7 @@ const PasswordChangeForm = ({
                     value={passwordData.current_password}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                     required
                 />
                 <PasswordInput
@@ -47,6 +48,7 @@ const PasswordChangeForm = ({
                     value={passwordData.password}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                     required
                 />
                 <PasswordInput
@@ -56,6 +58,7 @@ const PasswordChangeForm = ({
                     value={passwordData.password_confirmation}
                     onChange={onChange}
                     disabled={!isEditing}
+                    readOnly={!isEditing}
                     required
                 />
 
@@ -63,7 +66,11 @@ const PasswordChangeForm = ({
                     {!isEditing ? (
                         <Button 
                             variant="primary"
-                            onClick={onEdit}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onEdit();
+                            }}
+                            type="button"
                         >
                             Change Password
                         </Button>
