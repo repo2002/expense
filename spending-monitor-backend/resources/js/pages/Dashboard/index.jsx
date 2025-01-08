@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import API from '../../api/axios';
 import DashboardTemplate from '../../templates/DashboardTemplate';
+import CategoryTag from '../../components/CategoryTag/index';
 import Button from '../../atoms/Button';
+import Table from '../../organisms/Table/index';
+import { formatAmount, formatCurrency } from '../../utils/formatters';
+import ImageModal from '../../components/ImageModal';
 import './Dashboard.scss';
 
 const DashboardPage = () => {
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedReceipt, setSelectedReceipt] = useState(null);
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -27,29 +32,75 @@ const DashboardPage = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
-    return (
-        <DashboardTemplate
-            title="Dashboard"
-            actions={
-                <Button variant="primary">
-                    Add Transaction
+    const columns = [
+        {
+            key: 'category',
+            label: 'Category',
+            render: (_, row) => row.category ? (
+                <CategoryTag
+                    name={row.category.name}
+                    color={row.category.color}
+                    icon={row.category.icon}
+                />
+            ) : '-'
+        },
+        {
+            key: 'date',
+            label: 'Date',
+            render: (date) => date ? new Date(date).toLocaleDateString() : '-'
+        },
+        {
+            key: 'location',
+            label: 'Location'
+        },
+        {
+            key: 'description',
+            label: 'Description'
+        },
+        {
+            key: 'payment_method',
+            label: 'Payment Method'
+        },
+        {
+            key: 'amount',
+            label: 'Amount',
+            
+            render: (amount, row) => amount != null ? 
+                formatCurrency(amount, row.currency) : '-'
+        },
+        {
+            key: 'receipt_image',
+            label: 'Receipt',
+            align: 'center',
+            render: (receipt) => receipt ? (
+                <Button 
+                    onClick={() => setSelectedReceipt(receipt)}
+                    type="button"
+                    variant="primary"
+                    size="small"
+                >
+                    📎 View Receipt
                 </Button>
-            }
-        >
+            ) : '-'
+        }
+    ];
+
+    return (
+        <DashboardTemplate>
             <div className="dashboard-page">
                 {/* Summary Cards */}
                 <div className="dashboard-page__summary">
                     <div className="summary-card">
                         <h3>Monthly Budget</h3>
-                        <p>${dashboardData?.summary.total_budget.toFixed(2)}</p>
+                        <p>€{dashboardData?.summary.total_budget.toFixed(2)}</p>
                     </div>
                     <div className="summary-card">
                         <h3>Total Expenses</h3>
-                        <p>${dashboardData?.summary.total_expenses.toFixed(2)}</p>
+                        <p>€{dashboardData?.summary.total_expenses.toFixed(2)}</p>
                     </div>
                     <div className="summary-card">
                         <h3>Remaining Budget</h3>
-                        <p>${dashboardData?.summary.remaining_budget.toFixed(2)}</p>
+                        <p>€{dashboardData?.summary.remaining_budget.toFixed(2)}</p>
                     </div>
                 </div>
 
@@ -65,7 +116,7 @@ const DashboardPage = () => {
                             >
                                 <span className="category-icon">{category.icon}</span>
                                 <h4>{category.name}</h4>
-                                <p>${category.total.toFixed(2)}</p>
+                                <p>€{category.total.toFixed(2)}</p>
                             </div>
                         ))}
                     </div>
@@ -74,23 +125,10 @@ const DashboardPage = () => {
                 {/* Recent Transactions */}
                 <div className="dashboard-page__transactions">
                     <h2>Recent Transactions</h2>
-                    <div className="transactions-list">
-                        {dashboardData?.recent_transactions.map((transaction) => (
-                            <div key={transaction.id} className="transaction-item">
-                                <div className="transaction-info">
-                                    <span className="category-tag" style={{ backgroundColor: transaction.category.color }}>
-                                        {transaction.category.name}
-                                    </span>
-                                    <p className="transaction-date">
-                                        {new Date(transaction.date).toLocaleDateString()}
-                                    </p>
-                                </div>
-                                <p className="transaction-amount">
-                                    ${transaction.amount.toFixed(2)}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                    <Table 
+                        columns={columns} 
+                        data={dashboardData?.recent_transactions || []}
+                    />
                 </div>
 
                 {/* Upcoming Bills */}
@@ -106,6 +144,13 @@ const DashboardPage = () => {
                         ))}
                     </div>
                 </div>
+
+                {selectedReceipt && (
+                    <ImageModal
+                        imageUrl={selectedReceipt}
+                        onClose={() => setSelectedReceipt(null)}
+                    />
+                )}
             </div>
         </DashboardTemplate>
     );

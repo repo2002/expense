@@ -12,7 +12,7 @@ import ForgotPasswordPage from '../pages/ForgotPassword';
 
 
 
-// Protected Route Component
+// Protected Route
 const ProtectedRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
     
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children }) => {
     return children;
 };
 
-// Public Route Component (redirects to dashboard if already authenticated)
+// Public Route
 const PublicRoute = ({ children }) => {
     const isAuthenticated = !!localStorage.getItem('token');
     
@@ -71,7 +71,7 @@ function App() {
                         path="/" 
                         element={
                             <ProtectedRoute>
-                                <DashboardPage />
+                                <HomePage />
                             </ProtectedRoute>
                         } 
                     />

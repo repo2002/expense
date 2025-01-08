@@ -1,0 +1,26 @@
+.category-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-lg);
+    border: 1.5px solid;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: default;
+    
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &__icon {
+        margin-right: 0.5rem;
+        font-size: 0.825rem;
+    }
+
+    &__name {
+        white-space: nowrap;
+    }
+} 

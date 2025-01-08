@@ -1,0 +1,52 @@
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 2rem;
+
+    &__content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        background: var(--card-background);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+    }
+
+    &__close {
+        position: absolute;
+        top: -1rem;
+        right: -1rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: var(--danger-color);
+        color: white;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+
+        &:hover {
+            background: var(--danger-color-dark);
+        }
+    }
+
+    &__image {
+        max-width: 100%;
+        max-height: calc(90vh - 2rem);
+        object-fit: contain;
+        border-radius: var(--border-radius);
+    }
+} 
